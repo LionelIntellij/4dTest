@@ -5,12 +5,28 @@
 
 
 typedef  struct Node {
-	Node* node;
-	std::vector<Node*> list;
-	bool bValue;
-	float fValue;
-	std::string strValue;
+	enum Type {
+		NODE,
+		BOOLEAN,
+		STRING,
+		FLOAT,
+	};
+
+	Node() {};
+	//TODO copy constructor necessary
+	std::string key;
+	union Value {
+		Node* node;
+		std::vector<Node*> list;
+		bool bValue;
+		float fValue;
+		std::string strValue;
+	}values;
+	Type type;
+	~Node() =default;
 } Node;
+
+
 
 
 class JsonParser
@@ -25,6 +41,7 @@ class JsonParser
 		QUOTE,
 		COMMA,
 		BOOL_TYPE,
+		NUMBER_TYPE,
 		UNKNOW
 	};
 
@@ -32,20 +49,24 @@ public:
 	JsonParser(const std::string & jsonStr);
 	bool parse();
 	std::string getError();
+	~JsonParser();
 
 private:
 	TokenType getTokenType();
-	bool parseString();
+	std::string parseString();
 	bool parseBoolean();
-	bool parseArray();
-	bool parseNode();
+	std::vector<Node*> parseArray();
+	float parseNumber();
+	Node* parseNode();
+	void setNode(Node* node);
 
 private:
 	std::string m_jsonStr;
 	std::string m_error;
-	std::map<std::string, Node*> m_json;
+	Node* m_rootNode;
 	size_t m_positionJson;
 	size_t m_jsonSize;
+	std::string m_KeyRoot;
 
 
 };
