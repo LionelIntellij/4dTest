@@ -1,0 +1,10 @@
+set(CMAKE_VERSION 3.16)
+
+project(4dTest)
+include_directories(.)
+
+add_executable(JsonParser
+main.cpp
+JsonParser.cpp
+JsonParser.h
+)
