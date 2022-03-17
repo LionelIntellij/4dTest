@@ -20,9 +20,11 @@ class JsonParser
 		CURLY_OPEN,
 		CURLY_CLOSE,
 		ARRAY_OPEN,
-		ARRAY_CLOSED,
+		ARRAY_CLOSE,
+		SEMICOLON,
 		QUOTE,
 		COMMA,
+		BOOL_TYPE,
 		UNKNOW
 	};
 
@@ -33,6 +35,10 @@ public:
 
 private:
 	TokenType getTokenType();
+	bool parseString();
+	bool parseBoolean();
+	bool parseArray();
+	bool parseNode();
 
 private:
 	std::string m_jsonStr;
