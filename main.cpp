@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 
     if (argc < 2)
     {
-        printf("usage: %s only json text is necessary\n please check your arguement", argv[0]);
+        printf("usage: %s only json text is necessary\n please check your arguments", argv[0]);
         return 1;
     }
     
